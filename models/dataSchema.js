@@ -5,12 +5,23 @@ const userSchema = new Schema({
     userFirstName: { type: String, required: true },
     userLastName: { type: String, required: true },
     userUserName: { type: String, required: true },
+    userPassword: { type: String, required: true },
     userDoB: { type: String, required: true },
     userPhone: { type: Number },
     userPass: { type: String, required: true },
     userEmail: { type: String, required: true },
     userAddress: { type: String, required: true },
+    admin: { type: Boolean, default: false },
+    test: { type: Boolean, default: true }
 })
+
+const userScoreSchema = new Schema({
+    userID: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    listenScore: { type: Number },
+    writeScore: { type: Number }
+}, {
+        timestamps: { createdAt: "CreatedAt" }
+    })
 
 const tracnghiemSchema = new Schema({
     tnQuestionContent: { type: String, required: true },
@@ -84,12 +95,14 @@ const baidocSchema = new Schema({
 })
 
 var userInfo = mongoose.model("User", userSchema)
+var userScore = mongoose.model("userScore", userScoreSchema)
 var tracnghiem = mongoose.model("tracnghiem", tracnghiemSchema)
 var dientu = mongoose.model("dientu", dientuSchema)
 var baidoc = mongoose.model("baidoc", baidocSchema)
 
 module.exports = {
     userInfo: userInfo,
+    userScore: userScore,
     tracnghiem: tracnghiem,
     dientu: dientu,
     baidoc: baidoc

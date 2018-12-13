@@ -10,6 +10,7 @@ let createUser = require("./routers/createUser")
 let createTracNghiem = require("./routers/createTracNghiem")
 let createDienTu = require("./routers/createDienTu")
 let createBaiDoc = require("./routers/createBaiDoc")
+let test = require("./routers/test")
 
 app.use(bodyParser.urlencoded({ extended: false }))
 
@@ -21,6 +22,7 @@ app.use("/", createUser)
 app.use("/", createTracNghiem)
 app.use("/", createDienTu)
 app.use("/", createBaiDoc)
+app.use("/", test)
 
 app.use(express.static("public"));
 

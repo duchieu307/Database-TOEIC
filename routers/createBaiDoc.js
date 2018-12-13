@@ -50,7 +50,7 @@ Router.post("/createbaidoc", (req, res) => {
         Q4QuestionContent, Q4AnswerValue, Q4AnswerAContent, Q4AnswerBContent, Q4AnswerCContent, Q4AnswerDContent,
         Q5QuestionContent, Q5AnswerValue, Q5AnswerAContent, Q5AnswerBContent, Q5AnswerCContent, Q5AnswerDContent
     )
-    res.send("Update cau hoi")
+    res.redirect("http://localhost:5000/createbaidoc")
 })
 
 module.exports = Router

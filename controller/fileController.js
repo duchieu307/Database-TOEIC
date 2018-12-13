@@ -1,11 +1,11 @@
 const dataSchema = require("../models/dataSchema")
 
-let creatUser = (FirstName, LastName, UserName, Pass, Email, DoB, Phone, Address) => {
+let creatUser = (FirstName, LastName, UserName, Password, Email, DoB, Phone, Address) => {
     let newUser = {
         userFirstName: FirstName,
         userLastName: LastName,
         userUserName: UserName,
-        userPass: Pass,
+        userPassword: Password,
         userEmail: Email,
         userPhone: Phone,
         userDoB: DoB,
@@ -99,9 +99,100 @@ let createBaiDoc = (
     dataSchema.baidoc.create(newBaiDoc)
 }
 
+let find10DienTu = (callback) => {
+    dataSchema.dientu.find({})
+        .limit(10)
+        .exec((err, docs) => {
+            if (err) console.log(err)
+            return callback(null, docs)
+        })
+}
+
+let find10TracNghiem = (callback) => {
+    dataSchema.tracnghiem.find({})
+        .limit(10)
+        .exec((err, docs) => {
+            if (err) console.log(err)
+            return callback(null, docs)
+        })
+}
+
+let find2BaiDoc = (callback) => {
+    dataSchema.baidoc.find({})
+        .limit(2)
+        .exec((err, docs) => {
+            if (err) console.log(err)
+            return callback(null, docs)
+        })
+}
+
+let checkDienTu = (AnsArr, callback) => {
+    dataSchema.dientu.find({}, (err, docs) => {
+        let correctAnswer = 0
+        let i = 0 // cac phan tu cua mang AnsArr
+        for (i = 0; i < docs.length; i++) {
+            for (j = 0; j < AnsArr.length; j++) {
+                if (docs[i]._id == AnsArr[j]._id) {
+                    if (docs[i].dtAnswer.dtAnswerValue == AnsArr[j].answer) {
+                        correctAnswer++
+                    }
+                }
+            }
+            // console.log(docs[i])
+        }
+        return callback(null, correctAnswer - 1)
+    })
+}
+
+let checkTracNghiem = (AnsArr, callback) => {
+    dataSchema.tracnghiem.find({}, (err, docs) => {
+        let correctAnswer = 0
+        let i = 0 // cac phan tu cua mang AnsArr
+        for (i = 0; i < docs.length; i++) {
+            for (j = 0; j < AnsArr.length; j++) {
+                if (docs[i]._id == AnsArr[j]._id) {
+                    if (docs[i].tnAnswer.tnAnswerValue == AnsArr[j].answer) {
+                        correctAnswer++
+                    }
+                }
+            }
+            // console.log(docs[i])
+        }
+        return callback(null, correctAnswer)
+    })
+}
+
+let checkBaiDoc = (id, Q1Value, Q2Value, Q3Value, Q4Value, Q5Value, callback) => {
+    dataSchema.baidoc.find({ _id: id }, (err, docs) => {
+        let correctAnswer = 0
+        if (docs[0].bdQuestion.Question1.Q1AnswerValue == Q1Value) correctAnswer++
+        if (docs[0].bdQuestion.Question2.Q2AnswerValue == Q2Value) correctAnswer++
+        if (docs[0].bdQuestion.Question3.Q3AnswerValue == Q3Value) correctAnswer++
+        if (docs[0].bdQuestion.Question4.Q4AnswerValue == Q4Value) correctAnswer++
+        if (docs[0].bdQuestion.Question5.Q5AnswerValue == Q5Value) correctAnswer++
+        return callback(null, correctAnswer)
+    })
+}
+
+let createUserScore = (id, writeScore, listenScore) => {
+    let newUserScore = {
+        userID: id,
+        listenScore: listenScore,
+        writeScore: writeScore
+    }
+    dataSchema.userScore.create(newUserScore)
+}
+
+
 module.exports = {
     creatUser,
     createTracNghiem,
     createDienTu,
-    createBaiDoc
+    createBaiDoc,
+    find10DienTu,
+    checkDienTu,
+    find10TracNghiem,
+    checkTracNghiem,
+    find2BaiDoc,
+    checkBaiDoc
 }

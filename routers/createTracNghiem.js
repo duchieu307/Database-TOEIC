@@ -6,7 +6,7 @@ Router.get("/createtracnghiem", (req, res) => {
     res.render("createTracNghiem")
 })
 
-Router.post("/createdethi", (req, res) => {
+Router.post("/createtracnghiem", (req, res) => {
     let questionContent = req.body.questionContent
     let AnswerValue = req.body.AnswerValue
     let AnswerAContent = req.body.AnswerAContent
@@ -14,7 +14,7 @@ Router.post("/createdethi", (req, res) => {
     let AnswerCContent = req.body.AnswerCContent
     let AnswerDContent = req.body.AnswerDContent
     FileController.createTracNghiem(questionContent, AnswerValue, AnswerAContent, AnswerBContent, AnswerCContent, AnswerDContent)
-    res.send("Update trac nghiem")
+    res.redirect("http://localhost:5000/createtracnghiem")
 })
 
 module.exports = Router

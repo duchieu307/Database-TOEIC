@@ -14,7 +14,7 @@ Router.post("/createdientu", (req, res) => {
     let AnswerCContent = req.body.AnswerCContent
     let AnswerDContent = req.body.AnswerDContent
     FileController.createDienTu(questionContent, AnswerValue, AnswerAContent, AnswerBContent, AnswerCContent, AnswerDContent)
-    res.send("Update Dien Tu")
+    res.redirect("http://localhost:5000/createdientu")
 })
 
 module.exports = Router
