@@ -15,8 +15,9 @@ Router.post("/createuser", (req, res) => {
     let Phone = req.body.Phone;
     let Email = req.body.Email;
     let Address = req.body.Address
+    let data = req.body
     FileController.creatUser(FirstName, LastName, UserName, Password, Email, DoB, Phone, Address)
-    res.send("Tao User thanh cong")
+    res.send(data)
 
 })
 

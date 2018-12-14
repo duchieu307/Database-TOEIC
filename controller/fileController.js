@@ -1,3 +1,4 @@
+
 const dataSchema = require("../models/dataSchema")
 
 let creatUser = (FirstName, LastName, UserName, Password, Email, DoB, Phone, Address) => {
@@ -183,6 +184,25 @@ let createUserScore = (id, writeScore, listenScore) => {
     dataSchema.userScore.create(newUserScore)
 }
 
+let getUserforAuth = (username) => new Promise((resolve, reject) => {
+    dataSchema.userInfo
+        .findOne({ userUserName: username })
+        .select("userUserName userPassword _id admin test")
+        .then(user => resolve(user))
+        .catch(err => reject(err))
+})
+
+async function findUserByName(data) {
+    try {
+        const doc = await dataSchema.userInfo.findOne({ username: data });
+        return doc;
+    } catch (err) {
+        console.log(err);
+        return err;
+    }
+}
+
+
 
 module.exports = {
     creatUser,
@@ -194,5 +214,7 @@ module.exports = {
     find10TracNghiem,
     checkTracNghiem,
     find2BaiDoc,
-    checkBaiDoc
+    checkBaiDoc,
+    getUserforAuth,
+    findUserByName
 }

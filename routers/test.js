@@ -2,8 +2,10 @@ const express = require("express");
 const Router = express.Router();
 const FileController = require("../controller/fileController");
 const async = require("async")
+const auth = require("./authorize")
 
-Router.get("/test", (req, res) => {
+Router.get("/test", auth.authorize, (req, res) => {
+
     FileController.find10DienTu((err, docs) => {
         let Data = docs
         let listElem = Data.map((item, index) => `

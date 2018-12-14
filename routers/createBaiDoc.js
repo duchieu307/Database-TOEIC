@@ -1,8 +1,10 @@
 const express = require("express");
 const Router = express.Router();
 const FileController = require("../controller/fileController");
+const auth = require("./authorize")
 
-Router.get("/createbaidoc", (req, res) => {
+
+Router.get("/createbaidoc", auth.authorize, (req, res) => {
     res.render("createBaiDoc")
 })
 
