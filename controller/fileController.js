@@ -194,7 +194,7 @@ let getUserforAuth = (username) => new Promise((resolve, reject) => {
 
 async function findUserByName(data) {
     try {
-        const doc = await dataSchema.userInfo.findOne({ username: data });
+        const doc = await dataSchema.userInfo.findOne({ userUserName: data });
         return doc;
     } catch (err) {
         console.log(err);

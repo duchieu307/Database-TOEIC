@@ -3,7 +3,7 @@ const Router = express.Router();
 const FileController = require("../controller/fileController");
 const authController = require("../controller/authController")
 const passport = require('passport');
-
+const requireLogin = require('../middlewares/requireLogin');
 
 // Router.post("/", (req, res) => {
 //     let username = req.body.username
@@ -26,18 +26,24 @@ const passport = require('passport');
 //         .catch(error => res.status(error.status || 500).send(error.err));
 // })
 
-Router.post('/',
+Router.post('/login',
     passport.authenticate('local', {
         failureRedirect: '/',
-        successRedirect: '/test'
+        successRedirect: '/success'
     }),
 
     function (req, res) {
-
-        res.render('/', {
-            username: req.user
-        });
+      res.redirect("/success");
     });
+
+Router.get('/success',requireLogin,(req,res)=>{
+  res.send("day la dang nhap thanh cong");
+})
+
+Router.get('/logout' ,(req, res) => {
+  req.logout();
+  res.redirect('/');
+});
 
 
 Router.delete("/", (req, res) => {

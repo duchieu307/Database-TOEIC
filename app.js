@@ -21,15 +21,15 @@ require("./routers/passport");
 
 app.use(bodyParser.urlencoded({ extended: false }))
 
-
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(
     cookieSession({
         maxAge: 30 * 24 * 60 * 60 * 1000,
-        keys: "hieuvu"
+        keys: ["hieuvumatloztamhonchodai"]
     })
 );
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 
 app.engine("handlebars", handlebars({ defaultLayout: "main" }))

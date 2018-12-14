@@ -6,7 +6,7 @@ const dataSchema = require("../models/dataSchema")
 const fileController = require("../controller/fileController");
 const bcrypt = require('bcrypt');
 passport.serializeUser((user, done) => {
-  console.log('user rrrr ', user.id11);
+  console.log('user rrrr ', user.id);
   done(null, user.id);
 });
 
@@ -19,13 +19,12 @@ passport.deserializeUser((_id, done) => {
 
 passport.use(new LocalStrategy(
   async (username, password, done) => {
-    console.log("Aaaaa");
     const data = await fileController.findUserByName(username);
     if (data) {
       console.log(data);
       bcrypt.compare(password, data.userPassword, (err, res) => {
         if (res) {
-          console.log(res);
+          console.log("dung pass r");
           return done(null, data);
         } else {
           console.log("sai p");
@@ -33,6 +32,7 @@ passport.use(new LocalStrategy(
         }
       })
     } else {
+      console.log("deo thay");
       return done(null, false);
     }
   }
